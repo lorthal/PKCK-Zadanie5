@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +74,66 @@ public class MainActivity extends AppCompatActivity
             list.add(f.getNazwa());
         }
         final String[] array = list.toArray(new String[list.size()]);
+
+        companyNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                for (Firma f:gry.getListaFirm()) {
+                    if(spinner.getSelectedItem() == f.getNazwa())
+                        f.setNazwa(editable.toString());
+                }
+            }
+        });
+
+        companyLocalizationEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                for (Firma f:gry.getListaFirm()) {
+                    if(spinner.getSelectedItem() == f.getNazwa())
+                        f.setLokalizacja(editable.toString());
+                }
+            }
+        });
+
+        companyDateEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                for (Firma f:gry.getListaFirm()) {
+                    if(spinner.getSelectedItem() == f.getNazwa())
+                        f.setDataZalozenia(Integer.valueOf(editable.toString()));
+                }
+            }
+        });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -255,7 +317,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_pdf) {
             // Handle the camera action
         } else if (id == R.id.nav_html) {
-            Tools.convertToHTML();
 
         } else if (id == R.id.nav_svg) {
 
