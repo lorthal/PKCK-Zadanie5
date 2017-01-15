@@ -4,7 +4,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_company">Dodaj Firmę</string>
+    <string name="action_game">Dodaj Grę</string>
 
     <string name="name">Nazwa:</string>
     <string name="localization">Lokalizacja:</string>
@@ -14,5 +15,13 @@
     <string name="type">Gatunek:</string>
     <string name="price">Cena:</string>
     <string name="count">Ilość:</string>
-    <string name="add">Dodaj +</string>
+
+    <string name="export_pdf">Export to PDF</string>
+    <string name="export_html">Export to HTML</string>
+    <string name="export_svg">Export to SVG</string>
+
+    <string name="summary">Podsumowanie</string>
+    <string name="action">Gry Akcji</string>
+    <string name="arpg">Action Role-Playing Game</string>
+    <string name="platform">Platformowe</string>
 </resources>
