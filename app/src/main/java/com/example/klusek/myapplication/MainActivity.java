@@ -1,5 +1,6 @@
 package com.example.klusek.myapplication;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -184,6 +185,11 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_company) {
+            Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.add_company_dialog);
+            dialog.setTitle(getString(R.string.action_company));
+            dialog.show();
+            dialog.getWindow().setLayout(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
             return true;
         } else if(id == R.id.action_game) {
             return true;

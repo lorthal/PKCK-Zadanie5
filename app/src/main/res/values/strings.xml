@@ -24,4 +24,7 @@
     <string name="action">Gry Akcji</string>
     <string name="arpg">Action Role-Playing Game</string>
     <string name="platform">Platformowe</string>
+
+    <string name="save">Zapsiz</string>
+    <string name="cancel">Anuluj</string>
 </resources>
