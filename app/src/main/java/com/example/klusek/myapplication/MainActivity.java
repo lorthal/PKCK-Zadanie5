@@ -447,7 +447,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_html) {
             Tools.convertToHTML(context, "PGK-gry-xhtml.xslt", "result.xml");
-            Tools.openhtml(context,"result.html");
         }else if (id == R.id.nav_summary) {
             SummaryDialog();
         }
