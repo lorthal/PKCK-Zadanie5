@@ -1,5 +1,6 @@
 package com.example.klusek.myapplication;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -458,10 +459,20 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_html) {
             Tools.convertToHTML(context, "PGK-gry-xhtml.xslt", "result.xml");
         }else if (id == R.id.nav_summary) {
-
+            SummaryDialog();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    public void SummaryDialog()
+    {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("Podsumowanie");
+        dialog.setMessage(gry.getPodsumowanie().toString());
+        dialog.show();
+    }
+
 }
