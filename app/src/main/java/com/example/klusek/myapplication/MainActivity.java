@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_pdf) {
             // Handle the camera action
         } else if (id == R.id.nav_html) {
-            Tools.convertToHTML();
+            Tools.convertToHTML(context, "PGK-gry-xhtml.xslt", "result.xml");
 
         } else if (id == R.id.nav_svg) {
 

@@ -48,13 +48,13 @@ public class Tools {
 
             File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), fileName);
 
-            if(!file.exists()) {
+            if (!file.exists()) {
                 copy(context.getAssets().open(fileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), fileName));
             }
 
 
             Gry gry = serializer.read(Gry.class, file);
-            return  gry;
+            return gry;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,8 +62,7 @@ public class Tools {
         return null;
     }
 
-    public static void openPdf(Context context, String fileName)
-    {
+    public static void openPdf(Context context, String fileName) {
         try {
             copy(context.getAssets().open(fileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), fileName));
             File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), fileName);
@@ -77,36 +76,32 @@ public class Tools {
         }
     }
 
-    public static void convertToHTML(Context context, String xstlFileName, String xmlFileName)
-    {
-        try
-        {
-            File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xstlFileName);
+    public static void convertToHTML(Context context, String xstlFileName, String xmlFileName) {
+        try {
+            File fileXslt = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xstlFileName);
 
-            if(!file.exists())
+            if (!fileXslt.exists())
                 copy(context.getAssets().open(xstlFileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xstlFileName));
 
 
-            file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xmlFileName);
-            if(!file.exists())
+            File fileXml = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xmlFileName);
+            if (!fileXml.exists())
                 copy(context.getAssets().open(xmlFileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xmlFileName));
 
             TransformerFactory tFactory = TransformerFactory.newInstance();
 
-            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xstlFileName));
+            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(fileXslt));
 
-            file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), "html-result.html");
-            if(!file.exists())
-            {
-                file.delete();
-                transformer.transform(new javax.xml.transform.stream.StreamSource(xmlFileName),
-                        new javax.xml.transform.stream.StreamResult((new FileOutputStream("html-result.html"))));
+            File fileXhtml = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), "html-result.html");
+            if (!fileXhtml.exists()) {
+                fileXhtml.delete();
+                transformer.transform(new javax.xml.transform.stream.StreamSource(fileXml),
+                        new javax.xml.transform.stream.StreamResult((new FileOutputStream(fileXhtml))));
+
             }
 
 
-        }
-        catch (Exception e )
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
