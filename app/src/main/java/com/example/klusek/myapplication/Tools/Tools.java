@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 
+
 import com.example.klusek.myapplication.Mapping.Gry;
 
 import org.simpleframework.xml.Serializer;
@@ -15,7 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
+import javax.xml.transform.*;
+import java.net.*;
+import java.io.*;
 /**
  * Created by Klusek on 15.01.2017.
  */
@@ -70,6 +73,23 @@ public class Tools {
             context.startActivity(intent);
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void convertToHTML()
+    {
+        try
+        {
+            TransformerFactory tFactory = TransformerFactory.newInstance();
+
+            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource("PGK-gry-xhtml.xslt"));
+
+            transformer.transform(new javax.xml.transform.stream.StreamSource("result.xml"),
+                    new javax.xml.transform.stream.StreamResult((new FileOutputStream("html-result.html"))));
+        }
+        catch (Exception e )
+        {
             e.printStackTrace();
         }
     }
