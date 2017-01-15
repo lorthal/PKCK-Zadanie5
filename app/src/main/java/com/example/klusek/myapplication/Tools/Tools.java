@@ -93,8 +93,14 @@ public class Tools {
             Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(fileXslt));
 
             File fileXhtml = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), "html-result.html");
-            if (!fileXhtml.exists()) {
+            if(fileXhtml.exists())
+            {
                 fileXhtml.delete();
+                transformer.transform(new javax.xml.transform.stream.StreamSource(fileXml),
+                        new javax.xml.transform.stream.StreamResult((new FileOutputStream(fileXhtml))));
+            }
+
+            if (!fileXhtml.exists()) {
                 transformer.transform(new javax.xml.transform.stream.StreamSource(fileXml),
                         new javax.xml.transform.stream.StreamResult((new FileOutputStream(fileXhtml))));
 
