@@ -4,17 +4,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_pdf"
-            android:icon="@android:drawable/ic_menu_send"
-            android:title="@string/export_pdf" />
-        <item
             android:id="@+id/nav_html"
             android:icon="@android:drawable/ic_menu_send"
             android:title="@string/export_html" />
-        <item
-            android:id="@+id/nav_svg"
-            android:icon="@android:drawable/ic_menu_send"
-            android:title="@string/export_svg" />
     </group>
 
     <item
