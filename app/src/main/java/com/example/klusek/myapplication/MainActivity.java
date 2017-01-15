@@ -25,10 +25,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.klusek.myapplication.Mapping.Firma;
+import com.example.klusek.myapplication.Mapping.Gra;
 import com.example.klusek.myapplication.Mapping.Gry;
 import com.example.klusek.myapplication.Tools.Tools;
 
@@ -65,21 +67,34 @@ public class MainActivity extends AppCompatActivity
              ) {
             list.add(f.getNazwa());
         }
-        list.add(getString(R.string.add));
         final String[] array = list.toArray(new String[list.size()]);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(adapterView.getSelectedItem() == array[list.size()-1]) {
-                    companyNameEditText.setText("");
-                    companyLocalizationEditText.setText("");
-                    companyDateEditText.setText("");
-                } else {
-                    companyNameEditText.setText(array[adapterView.getSelectedItemPosition()]);
-                    companyLocalizationEditText.setText(gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getLokalizacja());
-                    companyDateEditText.setText(String.valueOf(gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getDataZalozenia()));
+                companyNameEditText.setText(array[adapterView.getSelectedItemPosition()]);
+                companyLocalizationEditText.setText(gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getLokalizacja());
+                companyDateEditText.setText(String.valueOf(gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getDataZalozenia()));
+
+                LinearLayout companyLayout = (LinearLayout) findViewById(R.id.company_layout);
+
+                for(int j = 7; i < companyLayout.getChildCount(); i++) {
+                    if(companyLayout.getChildAt(j) != null)
+                        companyLayout.removeViewAt(j);
                 }
+
+                for (Gra g: gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getListaGier()) {
+                    LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    LinearLayout game = (LinearLayout) vi.inflate(R.layout.game_item, null);
+
+                    ((EditText)game.findViewById(R.id.gameNameEditText)).setText(g.getNazwa());
+                    ((EditText)game.findViewById(R.id.gameDateEditText)).setText(g.getRokWydania());
+                    ((EditText)game.findViewById(R.id.gameTypeEditText)).setText(g.getGatunek());
+                    ((EditText)game.findViewById(R.id.gamePriceEditText)).setText(g.getCena());
+                    ((EditText)game.findViewById(R.id.gameCountEditText)).setText(String.valueOf(g.getIloscSztuk()));
+                    companyLayout.addView(game);
+                }
+
             }
 
             @Override

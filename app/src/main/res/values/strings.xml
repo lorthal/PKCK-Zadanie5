@@ -10,5 +10,9 @@
     <string name="localization">Lokalizacja:</string>
     <string name="date">Data Założenia:</string>
     <string name="games">Gry:</string>
+    <string name="year">Rok Wydania:</string>
+    <string name="type">Gatunek:</string>
+    <string name="price">Cena:</string>
+    <string name="count">Ilość:</string>
     <string name="add">Dodaj +</string>
 </resources>
