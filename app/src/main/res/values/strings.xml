@@ -5,4 +5,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="name">Nazwa:</string>
+    <string name="localization">Lokalizacja:</string>
+    <string name="date">Data Założenia:</string>
+    <string name="games">Gry:</string>
+    <string name="add">Dodaj +</string>
 </resources>
