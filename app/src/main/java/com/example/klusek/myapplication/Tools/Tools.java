@@ -77,16 +77,33 @@ public class Tools {
         }
     }
 
-    public static void convertToHTML()
+    public static void convertToHTML(Context context, String xstlFileName, String xmlFileName)
     {
         try
         {
+            File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xstlFileName);
+
+            if(!file.exists())
+                copy(context.getAssets().open(xstlFileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xstlFileName));
+
+
+            file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xmlFileName);
+            if(!file.exists())
+                copy(context.getAssets().open(xmlFileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), xmlFileName));
+
             TransformerFactory tFactory = TransformerFactory.newInstance();
 
-            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource("PGK-gry-xhtml.xslt"));
+            Transformer transformer = tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xstlFileName));
 
-            transformer.transform(new javax.xml.transform.stream.StreamSource("result.xml"),
-                    new javax.xml.transform.stream.StreamResult((new FileOutputStream("html-result.html"))));
+            file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), "html-result.html");
+            if(!file.exists())
+            {
+                file.delete();
+                transformer.transform(new javax.xml.transform.stream.StreamSource(xmlFileName),
+                        new javax.xml.transform.stream.StreamResult((new FileOutputStream("html-result.html"))));
+            }
+
+
         }
         catch (Exception e )
         {
