@@ -93,10 +93,21 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="7dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:text="@string/games"
+            android:textSize="20sp"
+            android:gravity="center_vertical"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:minHeight="1dp" />
 
     </LinearLayout>
 
