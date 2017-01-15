@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -185,9 +186,19 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_company) {
-            Dialog dialog = new Dialog(context);
+            final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.add_company_dialog);
             dialog.setTitle(getString(R.string.action_company));
+            Button dialogButtonSave = (Button) dialog.findViewById(R.id.button_save);
+            Button dialogButtonCancel = (Button) dialog.findViewById(R.id.button_cancel);
+
+            dialogButtonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
             dialog.show();
             dialog.getWindow().setLayout(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
             return true;
@@ -207,6 +218,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_pdf) {
             // Handle the camera action
         } else if (id == R.id.nav_html) {
+            Tools.convertToHTML();
 
         } else if (id == R.id.nav_svg) {
 
