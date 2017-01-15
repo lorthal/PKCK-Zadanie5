@@ -19,8 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.klusek.myapplication.Mapping.Firma;
 import com.example.klusek.myapplication.Mapping.Gry;
 import com.example.klusek.myapplication.Tools.Tools;
 
@@ -30,19 +33,42 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Gry gry;
     private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        gry = Tools.readXML(context, "result.xml");
         setContentView(R.layout.activity_main);
         final TextView xmlTextView = (TextView) findViewById(R.id.xmlTextView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        List<Firma> adapterList = gry.getListaFirm();
+        List<String> list = new ArrayList<>();
+
+        for (Firma f:gry.getListaFirm()
+             ) {
+            list.add(f.getNazwa());
+        }
+
+        String[] array = list.toArray(new String[list.size()]);
+
+        ArrayAdapter adapter = new ArrayAdapter(context, R.layout.spinner_item) {
+
+        };
+        adapter.add(array[0]);
+
+//        spinner.setAdapter(adapter);
+
         setSupportActionBar(toolbar);
 
         //String xmlString = getXml("files/result.txt");
@@ -55,8 +81,6 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                Gry gry = Tools.readXML(context, "result.xml");
-                xmlTextView.setText(gry.toString());
             }
         });
 
@@ -68,6 +92,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView navTextView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navTextView);
+
+        if(navTextView != null) {
+            navTextView.setText(gry.getOgolneInformacje().toString());
+        }
+
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
     }
 
