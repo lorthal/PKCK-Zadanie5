@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Gry>
+   <OgólneInformacje>
+      <Autorzy>
+         <Autor>
+            <Indeks>195586</Indeks>
+            <Imię>Tomasz</Imię>
+            <Nazwisko>Gabryelewicz</Nazwisko>
+         </Autor>
+         <Autor>
+            <Indeks>19565</Indeks>
+            <Imię>Bartosz</Imię>
+            <Nazwisko>Kluchciński</Nazwisko>
+         </Autor>
+      </Autorzy>
+   </OgólneInformacje>
+   <ListaFirm>
+      <Firma>
+         <Nazwa>Naughty Dog</Nazwa>
+         <Lokalizacja>Santa Monica, CA, USA</Lokalizacja>
+         <DataZałożenia>1984</DataZałożenia>
+         <ListaGier>
+            <Gra>
+               <Nazwa>Crash Bandicoot</Nazwa>
+               <RokWydania>1996</RokWydania>
+               <Gatunek>Platformowa</Gatunek>
+               <Cena>23.00 PLN</Cena>
+               <IlośćSztuk>5</IlośćSztuk>
+            </Gra>
+            <Gra>
+               <Nazwa>Uncharted 4: Kres złodzieja</Nazwa>
+               <RokWydania>2016</RokWydania>
+               <Gatunek>Gra Akcji</Gatunek>
+               <Cena>234.00 PLN</Cena>
+               <IlośćSztuk>23</IlośćSztuk>
+            </Gra>
+            <Gra>
+               <Nazwa>The Last of Us</Nazwa>
+               <RokWydania>2013</RokWydania>
+               <Gatunek>Gra Akcji</Gatunek>
+               <Cena>23.99 USD</Cena>
+               <IlośćSztuk>194345</IlośćSztuk>
+            </Gra>
+         </ListaGier>
+      </Firma>
+      <Firma>
+         <Nazwa>Insomniac Games</Nazwa>
+         <Lokalizacja>Burbank, Kalifornia, USA</Lokalizacja>
+         <DataZałożenia>1994</DataZałożenia>
+         <ListaGier>
+            <Gra>
+               <Nazwa>Spyro the Dragon</Nazwa>
+               <RokWydania>1998</RokWydania>
+               <Gatunek>Platformowa</Gatunek>
+               <Cena>9.00 USD</Cena>
+               <IlośćSztuk>5</IlośćSztuk>
+            </Gra>
+            <Gra>
+               <Nazwa>Ratchet and Clank (2016)</Nazwa>
+               <RokWydania>2016</RokWydania>
+               <Gatunek>Platformowa</Gatunek>
+               <Cena>150.00 PLN</Cena>
+               <IlośćSztuk>56</IlośćSztuk>
+            </Gra>
+         </ListaGier>
+      </Firma>
+      <Firma>
+         <Nazwa>Grinding Gear Games</Nazwa>
+         <Lokalizacja>Auckland, New Zealand</Lokalizacja>
+         <DataZałożenia>2006</DataZałożenia>
+         <ListaGier>
+            <Gra>
+               <Nazwa>Path of Exile</Nazwa>
+               <RokWydania>2013</RokWydania>
+               <Gatunek>Action Role-Playing Game</Gatunek>
+               <Cena>1.00 PLN</Cena>
+               <IlośćSztuk>99999999</IlośćSztuk>
+            </Gra>
+         </ListaGier>
+      </Firma>
+   </ListaFirm>
+   <Podsumowanie>
+      <Statystyki>
+         <GraAkcji>
+            <Ilość>2</Ilość>
+         </GraAkcji>
+         <Platformowe>
+            <Ilość>3</Ilość>
+         </Platformowe>
+         <ActionRole-PlayingGame>
+            <Ilość>1</Ilość>
+         </ActionRole-PlayingGame>
+      </Statystyki>
+      <DataRaportu>2016-12-11+01:00</DataRaportu>
+   </Podsumowanie>
+</Gry>
