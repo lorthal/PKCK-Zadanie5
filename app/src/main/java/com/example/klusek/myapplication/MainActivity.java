@@ -35,6 +35,7 @@ import com.example.klusek.myapplication.Mapping.Firma;
 import com.example.klusek.myapplication.Mapping.Gra;
 import com.example.klusek.myapplication.Mapping.Gry;
 import com.example.klusek.myapplication.Tools.Tools;
+import com.example.klusek.myapplication.Tools.XMLManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,18 +51,19 @@ public class MainActivity extends AppCompatActivity
 
     private Gry gry;
     private Context context = this;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        gry = Tools.readXML(context, "result.xml");
+        gry = XMLManager.readXML(context, "result.xml");
         setContentView(R.layout.activity_main);
         final EditText companyNameEditText = (EditText) findViewById(R.id.companyNameEditText);
         final EditText companyLocalizationEditText = (EditText) findViewById(R.id.companyLocalizationEditText);
         final EditText companyDateEditText = (EditText) findViewById(R.id.companyDateEditText);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
         final List<String> list = new ArrayList<>();
 
@@ -105,27 +107,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, array) {
-
-            @NonNull
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                if(convertView == null)
-                {
-                    convertView = inflater.inflate(R.layout.spinner_item, null);
-                }
-
-                TextView companyName = (TextView) convertView.findViewById(R.id.spinner_item_name);
-                companyName.setText(array[position]);
-
-                return convertView;
-            }
-        };
-
-        spinner.setAdapter(adapter);
-
         setSupportActionBar(toolbar);
 
         //String xmlString = getXml("files/result.txt");
@@ -161,6 +142,43 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        gry = XMLManager.readXML(context, "result.xml");
+
+        final List<String> list = new ArrayList<>();
+
+        for (Firma f:gry.getListaFirm()
+                ) {
+            list.add(f.getNazwa());
+        }
+        final String[] array = list.toArray(new String[list.size()]);
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, array) {
+
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                if(convertView == null)
+                {
+                    convertView = inflater.inflate(R.layout.spinner_item, null);
+                }
+
+                TextView companyName = (TextView) convertView.findViewById(R.id.spinner_item_name);
+                companyName.setText(array[position]);
+
+                return convertView;
+            }
+        };
+
+        spinner.setAdapter(adapter);
+
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -191,6 +209,25 @@ public class MainActivity extends AppCompatActivity
             dialog.setTitle(getString(R.string.action_company));
             Button dialogButtonSave = (Button) dialog.findViewById(R.id.button_save);
             Button dialogButtonCancel = (Button) dialog.findViewById(R.id.button_cancel);
+
+            dialogButtonSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EditText name = (EditText) dialog.findViewById(R.id.companyNameEditText_dialog);
+                    EditText localization = (EditText) dialog.findViewById(R.id.companyLocalizationEditText_dialog);
+                    EditText date = (EditText) dialog.findViewById(R.id.companyDateEditText_dialog);
+
+                    if(name.getText().toString() != "" && localization.getText().toString() != "" && date.getText().toString() != "") {
+
+                        Firma firma = new Firma(name.getText().toString(),localization.getText().toString(), Integer.valueOf(date.getText().toString()));
+                        firma.setListaGier(new ArrayList<Gra>());
+                        gry.getListaFirm().add(firma);
+                        XMLManager.saveXML(gry,"result.xml");
+                        dialog.dismiss();
+                        onResume();
+                    }
+                }
+            });
 
             dialogButtonCancel.setOnClickListener(new View.OnClickListener() {
                 @Override

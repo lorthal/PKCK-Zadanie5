@@ -25,7 +25,7 @@ import java.io.*;
 
 public class Tools {
 
-    private static void copy(InputStream in, File dst) throws IOException {
+    static void copy(InputStream in, File dst) throws IOException {
 
         File dest = dst;
 
