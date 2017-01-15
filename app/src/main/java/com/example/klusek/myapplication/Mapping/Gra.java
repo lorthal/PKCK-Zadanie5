@@ -6,6 +6,7 @@ import org.simpleframework.xml.Element;
  * Created by Klusek on 15.01.2017.
  */
 
+
 public class Gra {
 
     @Element(name = "Nazwa")

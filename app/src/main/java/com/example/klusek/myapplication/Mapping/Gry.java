@@ -10,13 +10,13 @@ import java.util.List;
  * Created by Klusek on 15.01.2017.
  */
 
-@Root
+@Root(name = "Gry")
 public class Gry {
 
     @Element(name = "OgólneInformacje")
     private OgolneInformacje ogolneInformacje;
 
-    @ElementList(name = "ListaFirm", type = Firma.class)
+    @ElementList(name = "ListaFirm", type = Firma.class, entry = "Firma")
     private List<Firma> listaFirm;
 
     @Element(name = "Podsumowanie")

@@ -21,7 +21,7 @@ public class Firma {
     @Element(name = "DataZałożenia")
     private int dataZalozenia;
 
-    @ElementList(name = "ListaGier", type = Gra.class)
+    @ElementList(name = "ListaGier", type = Gra.class, entry = "Gra")
     private List<Gra> listaGier;
 
     public Firma(@Element(name = "Nazwa") String nazwa,@Element(name = "Lokalizacja") String lokalizacja,@Element(name = "DataZałożenia") int dataZalozenia) {

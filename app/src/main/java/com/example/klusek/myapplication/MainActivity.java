@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     private Gry gry;
     private Context context = this;
     Spinner spinner;
+    String[] array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,8 @@ public class MainActivity extends AppCompatActivity
              ) {
             list.add(f.getNazwa());
         }
-        final String[] array = list.toArray(new String[list.size()]);
+
+        array = list.toArray(new String[list.size()]);
 
         companyNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -142,22 +144,115 @@ public class MainActivity extends AppCompatActivity
                 companyLocalizationEditText.setText(gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getLokalizacja());
                 companyDateEditText.setText(String.valueOf(gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getDataZalozenia()));
 
-                LinearLayout companyLayout = (LinearLayout) findViewById(R.id.company_layout);
+                final LinearLayout companyLayout = (LinearLayout) findViewById(R.id.company_layout);
 
                 for(int j = 7; i < companyLayout.getChildCount(); i++) {
                     if(companyLayout.getChildAt(j) != null)
                         companyLayout.removeViewAt(j);
                 }
 
-                for (Gra g: gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getListaGier()) {
+                for (final Gra g: gry.getListaFirm().get(adapterView.getSelectedItemPosition()).getListaGier()) {
                     LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     LinearLayout game = (LinearLayout) vi.inflate(R.layout.game_item, null);
 
-                    ((EditText)game.findViewById(R.id.gameNameEditText)).setText(g.getNazwa());
-                    ((EditText)game.findViewById(R.id.gameDateEditText)).setText(g.getRokWydania());
-                    ((EditText)game.findViewById(R.id.gameTypeEditText)).setText(g.getGatunek());
-                    ((EditText)game.findViewById(R.id.gamePriceEditText)).setText(g.getCena());
-                    ((EditText)game.findViewById(R.id.gameCountEditText)).setText(String.valueOf(g.getIloscSztuk()));
+                    EditText gameName = (EditText)game.findViewById(R.id.gameNameEditText);
+                    EditText gameDate = (EditText)game.findViewById(R.id.gameDateEditText);
+                    EditText gameType = (EditText)game.findViewById(R.id.gameTypeEditText);
+                    EditText gamePrice = (EditText)game.findViewById(R.id.gamePriceEditText);
+                    EditText gameCount = (EditText)game.findViewById(R.id.gameCountEditText);
+
+                    gameName.addTextChangedListener(new TextWatcher() {
+                        String game;
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            game = charSequence.toString();
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            g.setNazwa(editable.toString());
+                        }
+                    });
+
+                    gameDate.addTextChangedListener(new TextWatcher() {
+
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            g.setRokWydania(editable.toString());
+                        }
+                    });
+
+                    gameType.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            g.setGatunek(editable.toString());
+                        }
+                    });
+
+                    gamePrice.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            g.setCena(editable.toString());
+                        }
+                    });
+
+                    gameCount.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            g.setIloscSztuk(Integer.valueOf(editable.toString()));
+                        }
+                    });
+
+                    gameName.setText(g.getNazwa());
+                    gameDate.setText(g.getRokWydania());
+                    gameType.setText(g.getGatunek());
+                    gamePrice.setText(g.getCena());
+                    gameCount.setText(String.valueOf(g.getIloscSztuk()));
                     companyLayout.addView(game);
                 }
 
@@ -178,9 +273,9 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Dane Zapisane", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
+                XMLManager.saveXML(gry,"result.xml");
             }
         });
 
@@ -215,7 +310,7 @@ public class MainActivity extends AppCompatActivity
                 ) {
             list.add(f.getNazwa());
         }
-        final String[] array = list.toArray(new String[list.size()]);
+        array = list.toArray(new String[list.size()]);
 
         ArrayAdapter adapter = new ArrayAdapter<String>(context, R.layout.spinner_item, array) {
 
@@ -360,13 +455,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_pdf) {
-            // Handle the camera action
-        } else if (id == R.id.nav_html) {
+        if (id == R.id.nav_html) {
             Tools.convertToHTML(context, "PGK-gry-xhtml.xslt", "result.xml");
-        } else if (id == R.id.nav_svg) {
-
-        } else if (id == R.id.nav_summary) {
+        }else if (id == R.id.nav_summary) {
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
