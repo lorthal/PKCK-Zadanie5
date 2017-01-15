@@ -42,26 +42,6 @@ public class Tools {
         out.close();
     }
 
-    public static Gry readXML(Context context, String fileName) {
-        try {
-            Serializer serializer = new Persister();
-
-            File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), fileName);
-
-            if (!file.exists()) {
-                copy(context.getAssets().open(fileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), fileName));
-            }
-
-
-            Gry gry = serializer.read(Gry.class, file);
-            return gry;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static void openPdf(Context context, String fileName) {
         try {
             copy(context.getAssets().open(fileName), new File(Environment.getExternalStorageDirectory().getAbsoluteFile(), fileName));

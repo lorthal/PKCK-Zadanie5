@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable editable) {
                 for (Firma f:gry.getListaFirm()) {
-                    if(spinner.getSelectedItem() == f.getNazwa())
+                    if(spinner.getSelectedItem().toString().matches(f.getNazwa()))
                         f.setNazwa(editable.toString());
                 }
             }
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable editable) {
                 for (Firma f:gry.getListaFirm()) {
-                    if(spinner.getSelectedItem() == f.getNazwa())
+                    if(spinner.getSelectedItem().toString().matches(f.getNazwa()))
                         f.setLokalizacja(editable.toString());
                 }
             }
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable editable) {
                 for (Firma f:gry.getListaFirm()) {
-                    if(spinner.getSelectedItem() == f.getNazwa())
+                    if(spinner.getSelectedItem().toString().matches(f.getNazwa()))
                         f.setDataZalozenia(Integer.valueOf(editable.toString()));
                 }
             }
@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity
                     EditText localization = (EditText) dialog.findViewById(R.id.companyLocalizationEditText_dialog);
                     EditText date = (EditText) dialog.findViewById(R.id.companyDateEditText_dialog);
 
-                    if(name.getText().toString() != "" && localization.getText().toString() != "" && date.getText().toString() != "") {
+                    if(!name.getText().toString().matches("") && !localization.getText().toString().matches("") && !date.getText().toString().matches("")) {
 
                         Firma firma = new Firma(name.getText().toString(),localization.getText().toString(), Integer.valueOf(date.getText().toString()));
                         firma.setListaGier(new ArrayList<Gra>());
@@ -287,6 +287,9 @@ public class MainActivity extends AppCompatActivity
                         XMLManager.saveXML(gry,"result.xml");
                         dialog.dismiss();
                         onResume();
+                    }
+                    else {
+                        dialog.dismiss();
                     }
                 }
             });
@@ -302,6 +305,49 @@ public class MainActivity extends AppCompatActivity
             dialog.getWindow().setLayout(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
             return true;
         } else if(id == R.id.action_game) {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.add_game_dialog);
+            dialog.setTitle(getString(R.string.action_game));
+            Button dialogButtonSave = (Button) dialog.findViewById(R.id.button_save_game);
+            Button dialogButtonCancel = (Button) dialog.findViewById(R.id.button_cancel_game);
+
+            dialogButtonSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EditText name = (EditText) dialog.findViewById(R.id.gameNameEditText_dialog);
+                    EditText date = (EditText) dialog.findViewById(R.id.gameDateEditText_dialog);
+                    EditText type = (EditText) dialog.findViewById(R.id.gameTypeEditText_dialog);
+                    EditText price = (EditText) dialog.findViewById(R.id.gamePriceEditText_dialog);
+                    EditText count = (EditText) dialog.findViewById(R.id.gameCountEditText_dialog);
+
+                    if(!name.getText().toString().matches("") && !date.getText().toString().matches("") && !type.getText().toString().matches("") && !price.getText().toString().matches("") && !count.getText().toString().matches("")) {
+
+                        Gra gra = new Gra(name.getText().toString(),date.getText().toString(), type.getText().toString(), price.getText().toString(), Integer.valueOf(count.getText().toString()));
+                        for (Firma f: gry.getListaFirm()) {
+                            if(spinner.getSelectedItem().toString().matches(f.getNazwa())) {
+                                f.getListaGier().add(gra);
+
+                            }
+                        }
+                        XMLManager.saveXML(gry,"result.xml");
+                        dialog.dismiss();
+                        onResume();
+                    }
+                    else {
+                        dialog.dismiss();
+                    }
+                }
+            });
+
+            dialogButtonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+            dialog.getWindow().setLayout(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
             return true;
         }
 
@@ -317,13 +363,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_pdf) {
             // Handle the camera action
         } else if (id == R.id.nav_html) {
-
+            Tools.convertToHTML(context, "PGK-gry-xhtml.xslt", "result.xml");
         } else if (id == R.id.nav_svg) {
 
         } else if (id == R.id.nav_summary) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
